@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body translate="no" >
+  <div id="output" 
+       style=   "display: block;
+        font-family: 'Open Sans';
+        font-weight: 100;
+        text-transform: uppercase;
+        font-size: 30px;
+        text-align: center;
+        color: lightgray; 
+        border-radius: 10px; 
+        padding: 10px;">
+    <div id="date">
+    </div>
+    <div id="time">
+    </div>
+  </div>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js'></script>
+  <script>
+var urlParams;
+
+(function () {
+    var match,
+        pl     = /\+/g,  // Regex for replacing addition symbol with a space
+        search = /([^&=]+)=?([^&]*)/g,
+        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+        query  = window.location.search.substring(1);
+    urlParams = {};
+    while (match = search.exec(query))
+       urlParams[decode(match[1])] = decode(match[2]);
+})();
+
+var outputDate = document.getElementById("date");
+var outputTime = document.getElementById("time");
+if (urlParams["style"]) output.setAttribute("style", urlParams["style"]);
+if (urlParams["bodyStyle"]) document.body.setAttribute("style", urlParams["bodyStyle"]);
+var c;
+setInterval(
+c = function() {
+    outputDate.innerText = moment().format(urlParams["format"] || 'ddd, D MMMM YYYY');
+    outputTime.innerText = moment().format(urlParams["format"] || 'h:mm A');
+}, 1000);
+c();
+  </script>
+</body>
+</html>  
